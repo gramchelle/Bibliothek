@@ -32,28 +32,60 @@ public class MemberService {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private EmailService emailService;
+
+    /*
+
     public Boolean saveMember(MemberSaveRequestDto memberSaveRequestDto) {
         Member member = modelMapper.map(memberSaveRequestDto, Member.class);
         memberRepository.save(member);
         return true;
     }
-/*
-    public String deleteMember(MemberDeleteRequestDto memberDeleteRequestDto) {
-        Optional<Member> memberOpt = memberRepository.findById(memberDeleteRequestDto.getId());
 
-        if (memberOpt.isEmpty()) {
-            return "Member not found.";
-        }
+     */
 
-        Member member = memberOpt.get();
-        if (!member.getName().equals(memberDeleteRequestDto.getName())) {
-            return "Name and ID do not match.";
-        }
+    public Member saveMember(MemberSaveRequestDto memberSaveRequestDto) {
+        // DTO'dan Member nesnesine dönüştür
+        Member member = modelMapper.map(memberSaveRequestDto, Member.class);
 
-        memberRepository.delete(member);
-        return "Deletion successful.";
+        // Member nesnesini veritabanına kaydet
+        Member savedMember = memberRepository.save(member);
+
+        // E-posta gönderimi
+        emailService.sendSimpleMessage(
+                savedMember.getEmail(),
+                "Kayıt Başarıyla Tamamlandı",
+                "Hoş geldiniz " + savedMember.getName() + "! Kayıt işleminiz başarıyla tamamlandı."
+        );
+
+        // Kaydedilen member'ı döndür
+        return savedMember;
     }
-*/
+
+    // Parametre olarak MemberSaveRequestDto alır ve kayıt işlemini yapar
+    public Boolean sendEmail(MemberSaveRequestDto memberSaveRequestDto) {
+        Member savedMember = saveMember(memberSaveRequestDto);
+        return savedMember != null;
+    }
+
+    /*
+        public String deleteMember(MemberDeleteRequestDto memberDeleteRequestDto) {
+            Optional<Member> memberOpt = memberRepository.findById(memberDeleteRequestDto.getId());
+
+            if (memberOpt.isEmpty()) {
+                return "Member not found.";
+            }
+
+            Member member = memberOpt.get();
+            if (!member.getName().equals(memberDeleteRequestDto.getName())) {
+                return "Name and ID do not match.";
+            }
+
+            memberRepository.delete(member);
+            return "Deletion successful.";
+        }
+    */
 /*
     public MemberGetResponseDto getMemberInformation(MemberGetResponseDto memberGetResponseDto) {
         return memberRepository.findById(memberGetResponseDto.getId())
@@ -91,7 +123,7 @@ public class MemberService {
         memberRepository.deleteById(id);
         return true;
     }
-// UPDATE ÇALIŞMIYOR
+    // UPDATE ÇALIŞMIYOR
     public Member updateMember(MemberUpdateRequestDto dto) {
         Member member = memberRepository.findById(dto.getId())
                 .orElseThrow(() -> new RuntimeException("Member not found"));
@@ -111,5 +143,7 @@ public class MemberService {
 
         return memberRepository.save(member);
     }
+
+
 
 }

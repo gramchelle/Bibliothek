@@ -26,6 +26,11 @@ public class SearchService {
         List<Member> members = memberRepository.findByNameContainingIgnoreCase(keyword);
         List<Reservation> reservations = reservationRepository.findByStatusContainingIgnoreCase(keyword);
 
+        System.out.println("Books found: " + books.size());
+        System.out.println("Members found: " + members.size());
+        System.out.println("Reservations found: " + reservations.size());
+
         return new SearchResultDto(books, members, reservations);
     }
+
 }

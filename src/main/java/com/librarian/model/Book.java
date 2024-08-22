@@ -9,14 +9,14 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "Book")
+@Table(name = "book")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(length = 36, nullable = false, unique = true)
     private UUID isbn;
 
     @Column

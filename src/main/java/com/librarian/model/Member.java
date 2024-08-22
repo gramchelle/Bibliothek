@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name="Member")
+@Table(name="member")
 @Data
 public class Member {
 

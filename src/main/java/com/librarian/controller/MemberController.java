@@ -21,25 +21,36 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/saveMember")
+    public ResponseEntity<String> saveMember(@RequestBody MemberSaveRequestDto memberSaveRequestDto) {
+        Boolean success = memberService.sendEmail(memberSaveRequestDto);
+        if (success) {
+            return ResponseEntity.ok("Kayıt işlemi başarıyla tamamlandı ve e-posta gönderildi.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Kayıt işlemi başarısız.");
+        }
+    }
+    /*
+    @PostMapping("/saveMember")
     public ResponseEntity<Boolean> saveBook(@RequestBody MemberSaveRequestDto memberSaveRequestDto){
         Boolean saveMember = memberService.saveMember(memberSaveRequestDto);
         return new ResponseEntity<>(saveMember, HttpStatus.CREATED);
     }
-/*
-    @DeleteMapping("/deleteMember")
-    public ResponseEntity<String> deleteMember(@RequestBody MemberDeleteRequestDto deleteRequestDto) {
-        String responseMessage = memberService.deleteMember(deleteRequestDto);
+    */
+    /*
+        @DeleteMapping("/deleteMember")
+        public ResponseEntity<String> deleteMember(@RequestBody MemberDeleteRequestDto deleteRequestDto) {
+            String responseMessage = memberService.deleteMember(deleteRequestDto);
 
-        if (responseMessage.equals("Deletion successful.")) {
-            return new ResponseEntity<>(responseMessage, HttpStatus.OK);
-        } else if (responseMessage.equals("Member not found.") || responseMessage.equals("Name and ID do not match.")) {
-            return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
-        } else {
-            return new ResponseEntity<>("An unexpected error occurred.", HttpStatus.INTERNAL_SERVER_ERROR);
+            if (responseMessage.equals("Deletion successful.")) {
+                return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+            } else if (responseMessage.equals("Member not found.") || responseMessage.equals("Name and ID do not match.")) {
+                return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+            } else {
+                return new ResponseEntity<>("An unexpected error occurred.", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-    }
 
- */
+     */
 /*
     @GetMapping("/information")
     public ResponseEntity<MemberGetResponseDto> getMemberInformation(@RequestParam("id") Long id) {

@@ -1,19 +1,18 @@
 package com.librarian.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/")
+@Controller
 public class HomePage {
 
-    @RequestMapping("/home")
-    private String greet(){
-        return "Home Page";
-    }
-
-    @RequestMapping("/")
-    private void isWorking(){
-        System.out.println("Çalışıyor");
+    @GetMapping("/home")
+    public String greeting() {
+        return "home";
     }
 }
+
