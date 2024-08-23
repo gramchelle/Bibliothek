@@ -44,13 +44,18 @@ public class BookService {
         return true;
     }
 
-    public Book updateBook(BookUpdateRequestDto dto) {
-        Book book = bookRepository.findById(dto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
-        book.setTitle(dto.getTitle());
-        book.setAuthor(dto.getAuthor());
-        book.setCategory(dto.getCategory());
-        return bookRepository.save(book);
+    public Book updateBook(Long bookId, BookUpdateRequestDto bookUpdateRequestDto) {
+        Book existingBook = bookRepository.findById(bookId).orElse(null);
+
+        if (existingBook != null) {
+            existingBook.setTitle(bookUpdateRequestDto.getTitle());
+            existingBook.setAuthor(bookUpdateRequestDto.getAuthor());
+            existingBook.setCategory(bookUpdateRequestDto.getCategory());
+
+            return bookRepository.save(existingBook);
+        } else {
+            return null;
+        }
     }
 
 

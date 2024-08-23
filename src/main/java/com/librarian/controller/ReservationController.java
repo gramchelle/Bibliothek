@@ -1,5 +1,5 @@
 package com.librarian.controller;
-
+/*
 import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
 import com.librarian.dto.requestDto.update.LoanStatusUpdateRequestDto;
@@ -24,7 +24,7 @@ public class ReservationController {
         Boolean saveReservation = reservationService.saveReservation(reservationSaveRequestDto);
         return new ResponseEntity<>(saveReservation, HttpStatus.CREATED);
     }
-
+/* /////////////////////////
     @PutMapping("/update")
     public Boolean updateReservation(@RequestBody ReservationUpdateRequestDto reservationUpdateRequestDto) {
         reservationService.updateLoanStatus(reservationUpdateRequestDto);
@@ -38,3 +38,4 @@ public class ReservationController {
     }
 
 }
+*/

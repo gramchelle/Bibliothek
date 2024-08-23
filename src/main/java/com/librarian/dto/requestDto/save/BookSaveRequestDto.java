@@ -9,7 +9,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class BookSaveRequestDto {
-
     private UUID isbn;
     private String title;
     private String author;

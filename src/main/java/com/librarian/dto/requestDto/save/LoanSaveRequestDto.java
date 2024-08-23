@@ -1,9 +1,6 @@
 package com.librarian.dto.requestDto.save;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-
-import com.librarian.model.Book;
-import com.librarian.model.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,9 +10,8 @@ import java.time.LocalDate;
 @Setter
 public class LoanSaveRequestDto {
 
-    private Book book;
-
-    private Member member;
+    private Long bookId;
+    private Long memberId;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate loanDate;

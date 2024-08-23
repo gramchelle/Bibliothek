@@ -10,13 +10,8 @@ import java.util.List;
 @Setter
 public class MemberUpdateRequestDto {
 
-    private Long id;
-
     private String name;
-
     private String surname;
-
     private String email;
-
-    private String address;
+    private List<Address> address;
 }

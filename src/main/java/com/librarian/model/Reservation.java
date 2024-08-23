@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -23,14 +24,8 @@ public class Reservation {
     private Member member;
 
     @Column
-    private LocalDate loanDate;
+    private LocalDateTime loanDate;
 
-    @Column
-    private LocalDate dueDate;
-
-    @Column
-    private LocalDate returnDate;
-
-    @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private LoanStatus status;
 }

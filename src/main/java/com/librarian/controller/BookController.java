@@ -16,19 +16,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/book")
-@RequiredArgsConstructor // default olarak tanımlanmış nesneler için arkada default olarak bir constructor oluşturuyor.
+@RequestMapping("/books")
+@RequiredArgsConstructor
 public class BookController {
 
     private final BookService bookService;
 
+    //ÇALIŞMIYOR
     @PostMapping("/saveBook")
     public ResponseEntity<Boolean> saveBook(@RequestBody BookSaveRequestDto bookSaveRequestDto){
         Boolean savedBook = bookService.saveBook(bookSaveRequestDto);
         return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }
 
-    private final Map<String, Integer> urlHitCounts = new HashMap<>();
+//    private final Map<String, Integer> urlHitCounts = new HashMap<>();
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Book>> getAllBooks() {
@@ -36,23 +37,29 @@ public class BookController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    //DOESN'T WORK
-    @GetMapping("/bookById/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         Book book = bookService.getBookById(id);
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteById/{id}")
     public Boolean deleteBookById(@PathVariable Long id) {
         bookService.deleteBookById(id);
         return true;
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Book> updateBook(@RequestBody BookUpdateRequestDto bookUpdateRequestDto) {
-        Book updatedBook = bookService.updateBook(bookUpdateRequestDto);
-        return ResponseEntity.ok(updatedBook);
+    @PutMapping("/updateById/{bookId}")
+    public ResponseEntity<Book> updateBook(
+            @PathVariable Long bookId,
+            @RequestBody BookUpdateRequestDto bookUpdateRequestDto) {
+
+        Book updatedBook = bookService.updateBook(bookId, bookUpdateRequestDto);
+        if (updatedBook != null) {
+            return ResponseEntity.ok(updatedBook);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

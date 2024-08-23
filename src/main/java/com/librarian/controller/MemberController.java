@@ -1,10 +1,11 @@
 package com.librarian.controller;
 
 import com.librarian.dto.requestDto.save.MemberSaveRequestDto;
-import com.librarian.dto.requestDto.delete.MemberDeleteRequestDto;
 import com.librarian.dto.requestDto.update.MemberUpdateRequestDto;
 import com.librarian.dto.responseDto.MemberGetResponseDto;
+import com.librarian.model.Loan;
 import com.librarian.model.Member;
+import com.librarian.model.Reservation;
 import com.librarian.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,69 +22,44 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/saveMember")
-    public ResponseEntity<String> saveMember(@RequestBody MemberSaveRequestDto memberSaveRequestDto) {
-        Boolean success = memberService.sendEmail(memberSaveRequestDto);
-        if (success) {
-            return ResponseEntity.ok("Kayıt işlemi başarıyla tamamlandı ve e-posta gönderildi.");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Kayıt işlemi başarısız.");
-        }
+    public ResponseEntity<Boolean> saveMember(@RequestBody MemberSaveRequestDto memberSaveRequestDto) {
+        boolean isMemberSaved = memberService.saveMember(memberSaveRequestDto);
+        return new ResponseEntity<>(isMemberSaved, HttpStatus.OK);
     }
-    /*
-    @PostMapping("/saveMember")
-    public ResponseEntity<Boolean> saveBook(@RequestBody MemberSaveRequestDto memberSaveRequestDto){
-        Boolean saveMember = memberService.saveMember(memberSaveRequestDto);
-        return new ResponseEntity<>(saveMember, HttpStatus.CREATED);
-    }
-    */
-    /*
-        @DeleteMapping("/deleteMember")
-        public ResponseEntity<String> deleteMember(@RequestBody MemberDeleteRequestDto deleteRequestDto) {
-            String responseMessage = memberService.deleteMember(deleteRequestDto);
 
-            if (responseMessage.equals("Deletion successful.")) {
-                return new ResponseEntity<>(responseMessage, HttpStatus.OK);
-            } else if (responseMessage.equals("Member not found.") || responseMessage.equals("Name and ID do not match.")) {
-                return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
-            } else {
-                return new ResponseEntity<>("An unexpected error occurred.", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    @DeleteMapping("/deleteMemberById/{memberId}")
+        public ResponseEntity<Boolean> deleteMember(@PathVariable Long memberId) {
+            Boolean isMemberDeleted = memberService.deleteMemberById(memberId);
+            return new ResponseEntity<>(isMemberDeleted, HttpStatus.OK);
         }
 
-     */
-/*
-    @GetMapping("/information")
-    public ResponseEntity<MemberGetResponseDto> getMemberInformation(@RequestParam("id") Long id) {
-        MemberGetResponseDto requestDto = new MemberGetResponseDto();
-        requestDto.setId(id);
-        MemberGetResponseDto responseDto = memberService.getMemberInformation(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
-    }
-*/
     @GetMapping("/getAll")
     public ResponseEntity<List<MemberGetResponseDto>> getAllMembers() {
         List<MemberGetResponseDto> responseDtoList = memberService.getAllMembers();
         return new ResponseEntity<>(responseDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/getById/{id}")
-    public ResponseEntity<Member> getMemberById(@PathVariable Long id) {
-        Member member = memberService.getMemberById(id);
+    @GetMapping("/getById/{memberId}")
+    public ResponseEntity<Member> getMemberById(@PathVariable Long memberId) {
+        Member member = memberService.getMemberById(memberId);
         return new ResponseEntity<>(member, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public Boolean deleteMemberById(@PathVariable Long id) {
-        memberService.deleteMemberById(id);
-        return true;
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<Member> updateMember(@RequestBody MemberUpdateRequestDto memberUpdateRequestDto) {
-        Member updatedMember = memberService.updateMember(memberUpdateRequestDto);
+    @PutMapping("/update/{memberId}")
+    public ResponseEntity<Member> updateMember(@PathVariable Long memberId, @RequestBody MemberUpdateRequestDto dto) {
+        Member updatedMember = memberService.updateMember(memberId, dto);
         return ResponseEntity.ok(updatedMember);
     }
 
+/*
+    @GetMapping("/{memberId}/reservations")
+    public List<Reservation> getReservationsByMember(@PathVariable Long memberId) {
+        return memberService.getReservationsByMember(memberId);
+    }
 
-
+    @GetMapping("/{memberId}/loans")
+    public List<Loan> getLoansByMember(@PathVariable Long memberId) {
+        return memberService.getLoansByMember(memberId);
+    }
+*/
 }

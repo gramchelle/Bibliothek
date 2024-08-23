@@ -1,6 +1,7 @@
 package com.librarian.dto.requestDto.save;
 
 
+import com.librarian.dto.AddressDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +14,5 @@ public class MemberSaveRequestDto {
     private String name;
     private String surname;
     private String email;
-    private String addresses;
+    private List<AddressDto> addresses;
 }

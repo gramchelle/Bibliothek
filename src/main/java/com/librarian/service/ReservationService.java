@@ -1,8 +1,8 @@
 package com.librarian.service;
-
+/*
 import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
-import com.librarian.dto.requestDto.update.ReservationUpdateRequestDto;
+import com.librarian.dto.requestDto.update.*;
 import com.librarian.exception.ResourceNotFoundException;
 import com.librarian.model.Loan;
 import com.librarian.model.Reservation;
@@ -28,7 +28,7 @@ public class ReservationService {
         reservationRepository.save(reservation);
         return true;
     }
-
+/* //////////////////////////////////////
     public void updateLoanStatus(ReservationUpdateRequestDto reservationUpdateRequestDto) {
         Reservation reservation = reservationRepository.findById(reservationUpdateRequestDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Loan not found"));
@@ -43,3 +43,4 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 }
+*/

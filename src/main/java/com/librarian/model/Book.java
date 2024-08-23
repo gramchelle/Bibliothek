@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 36, nullable = false, unique = true)
@@ -27,14 +27,5 @@ public class Book {
 
     @Column
     private String category;
-
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    /*
-    @JoinTable(name = "books_inspected",
-            joinColumns = @JoinColumn(name = "book_isbn"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-     */
-    private List<BooksInspected> booksInspecteds;
-
 
 }

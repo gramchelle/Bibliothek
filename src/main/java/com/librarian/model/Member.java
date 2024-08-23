@@ -1,14 +1,12 @@
 package com.librarian.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Entity
-@Table(name="member")
+@Table(name = "member")
 @Data
 public class Member {
 
@@ -25,7 +23,7 @@ public class Member {
     @Column
     private String email;
 
-    @OneToMany
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> address;
 
 }

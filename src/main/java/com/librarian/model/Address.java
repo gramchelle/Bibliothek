@@ -27,7 +27,7 @@ public class Address {
     private String street;
 
     @ManyToOne
-    @JoinColumn(name = "memberId")
+    @JoinColumn(name = "member_id")
     private Member member;
 
 }

@@ -1,12 +1,10 @@
 package com.librarian.service;
-
+/*
 import com.librarian.dto.responseDto.SearchResultDto;
 import com.librarian.model.Book;
 import com.librarian.model.Member;
 import com.librarian.model.Reservation;
-import com.librarian.repository.BookRepository;
-import com.librarian.repository.MemberRepository;
-import com.librarian.repository.ReservationRepository;
+import com.librarian.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +17,7 @@ public class SearchService {
 
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
-    private final ReservationRepository reservationRepository;
+    //private final ReservationRepository reservationRepository;
 
     public SearchResultDto search(String keyword) {
         List<Book> books = bookRepository.findByTitleContainingIgnoreCase(keyword);
@@ -34,3 +32,4 @@ public class SearchService {
     }
 
 }
+*/

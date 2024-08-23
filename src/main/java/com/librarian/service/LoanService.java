@@ -1,5 +1,5 @@
 package com.librarian.service;
-
+/*
 import com.librarian.controller.LoanController;
 import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
 import com.librarian.dto.requestDto.update.LoanStatusUpdateRequestDto;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class LoanService {
                 .status(status)
                 .book(book)
                 .member(member)
-                .loanDate(LocalDate.now())
+                .loanDate(LocalDateTime.now())
                 .dueDate(LocalDate.now().plusDays(14))
                 .build();
 
@@ -72,4 +73,7 @@ public class LoanService {
         loan.setStatus(dto.getStatus());
         loanRepository.save(loan);
     }
+
+
 }
+*/
