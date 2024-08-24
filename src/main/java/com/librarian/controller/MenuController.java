@@ -11,16 +11,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/menu")
 public class MenuController {
 
-    @GetMapping("/menu")
+    @GetMapping("")
     public ResponseEntity<Map<String, String>> getMenu() {
         Map<String, String> menu = new LinkedHashMap<>();
         menu.put("home", "/home");
-        menu.put("books", "/books");
-        menu.put("members", "/members");
+        menu.put("books", "/book/getAll");
+        menu.put("members", "/member/getAll");
         menu.put("reservations", "/reservations");
+        menu.put("search", "/search?keyword=");
 
         return new ResponseEntity<>(menu, HttpStatus.OK);
     }

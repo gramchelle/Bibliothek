@@ -1,5 +1,6 @@
 package com.librarian.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -21,13 +22,14 @@ public class Address {
     private String city;
 
     @Column
-    private UUID postalCode;
+    private String postalCode;
 
     @Column
     private String street;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
+    @JsonBackReference
     private Member member;
 
 }

@@ -10,16 +10,11 @@ import java.time.LocalDate;
 public class ReservationSaveRequestDto {
 
     private Long id;
-
-    private String bookId;
-
-    private String memberId;
-
+    private Long bookId;
+    private Long memberId;
+    private LocalDate reservationDate;
     private LocalDate loanDate;
-
     private LocalDate dueDate;
-
     private LocalDate returnDate;
-
     private String status;
 }

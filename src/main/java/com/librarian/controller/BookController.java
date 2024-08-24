@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/book")
 @RequiredArgsConstructor
 public class BookController {
 
     private final BookService bookService;
+    private final ModelMapper modelMapper;
 
-    //ÇALIŞMIYOR
     @PostMapping("/saveBook")
     public ResponseEntity<Boolean> saveBook(@RequestBody BookSaveRequestDto bookSaveRequestDto){
         Boolean savedBook = bookService.saveBook(bookSaveRequestDto);

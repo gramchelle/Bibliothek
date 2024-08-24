@@ -28,4 +28,7 @@ public class Book {
     @Column
     private String category;
 
+    @Column(nullable = false)
+    private int publicationYear;
+
 }

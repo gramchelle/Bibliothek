@@ -5,6 +5,7 @@ import com.librarian.dto.requestDto.update.ReservationUpdateRequestDto;
 import com.librarian.dto.responseDto.ReservationGetResponseDto;
 import com.librarian.exception.ResourceNotFoundException;
 import com.librarian.model.Reservation;
+import com.librarian.model.ReservationStatus;
 import com.librarian.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,9 +34,9 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(reservationUpdateRequestDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
 
-        // Update reservation fields as necessary
+        // Update reservation fields
         reservation.setReservationDate(reservationUpdateRequestDto.getReservationDate());
-        reservation.setStatus(reservationUpdateRequestDto.getStatus());
+        reservation.setStatus(ReservationStatus.valueOf(reservationUpdateRequestDto.getStatus()));
 
         reservationRepository.save(reservation);
         return true;
@@ -48,3 +49,4 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 }
+

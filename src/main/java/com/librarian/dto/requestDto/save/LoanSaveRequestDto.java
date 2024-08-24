@@ -11,7 +11,6 @@ import java.time.LocalDate;
 public class LoanSaveRequestDto {
 
     private Long bookId;
-    private Long memberId;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate loanDate;

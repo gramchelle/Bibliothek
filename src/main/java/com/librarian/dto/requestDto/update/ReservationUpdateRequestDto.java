@@ -1,6 +1,7 @@
 package com.librarian.dto.requestDto.update;
 
 import com.librarian.model.LoanStatus;
+import com.librarian.model.ReservationStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,6 @@ import java.time.LocalDate;
 public class ReservationUpdateRequestDto {
 
     private Long id;
-    private LocalDate reservationDate; // Bu alanı ekleyin
-    private LoanStatus status; // Bu alanı enum olarak ayarlayın
+    private LocalDate reservationDate;
+    private String status;
 }

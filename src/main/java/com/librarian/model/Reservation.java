@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -24,8 +23,10 @@ public class Reservation {
     private Member member;
 
     @Column
-    private LocalDateTime loanDate;
+    private LocalDate reservationDate;
 
     @Enumerated(EnumType.STRING)
-    private LoanStatus status;
+//    @Column
+    private ReservationStatus status;
+
 }

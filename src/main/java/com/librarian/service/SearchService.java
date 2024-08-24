@@ -4,15 +4,16 @@ import com.librarian.dto.responseDto.SearchResultDto;
 import com.librarian.model.Book;
 import com.librarian.model.Member;
 import com.librarian.model.Reservation;
-import com.librarian.repository.*;
-import lombok.AllArgsConstructor;
+import com.librarian.repository.BookRepository;
+import com.librarian.repository.MemberRepository;
+import com.librarian.repository.ReservationRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.naming.directory.SearchResult;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SearchService {
 
     private final BookRepository bookRepository;
@@ -23,12 +24,6 @@ public class SearchService {
         List<Book> books = bookRepository.findByTitleContainingIgnoreCase(keyword);
         List<Member> members = memberRepository.findByNameContainingIgnoreCase(keyword);
         List<Reservation> reservations = reservationRepository.findByStatusContainingIgnoreCase(keyword);
-
-        System.out.println("Books found: " + books.size());
-        System.out.println("Members found: " + members.size());
-        System.out.println("Reservations found: " + reservations.size());
-
         return new SearchResultDto(books, members, reservations);
     }
-
 }
