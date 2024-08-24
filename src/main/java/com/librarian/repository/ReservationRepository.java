@@ -1,5 +1,5 @@
 package com.librarian.repository;
-/*
+
 import com.librarian.model.Member;
 import com.librarian.model.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +12,3 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findByStatusContainingIgnoreCase(String status);
     List<Reservation> findByMemberOrderByReservationDateDesc(Member member);
 }
-*/

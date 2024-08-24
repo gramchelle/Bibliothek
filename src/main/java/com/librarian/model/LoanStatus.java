@@ -1,7 +1,8 @@
-package com.librarian.model;  // Adjust this package statement to match your package structure
+package com.librarian.model;
 
 public enum LoanStatus {
-    ACTIVE,
-    RETURNED,
-    OVERDUE
+    PENDING,
+    APPROVED,
+    REJECTED,
+    COMPLETED
 }

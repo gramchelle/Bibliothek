@@ -1,5 +1,5 @@
 package com.librarian.repository;
-/*
+
 import com.librarian.model.Loan;
 import com.librarian.model.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +13,4 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
     List<Loan> findByMemberOrderByLoanDateDesc(Member member);
 
 }
-*/
+

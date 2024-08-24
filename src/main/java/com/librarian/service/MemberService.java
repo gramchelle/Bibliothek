@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.librarian.dto.requestDto.save.MemberSaveRequestDto;
 import com.librarian.dto.requestDto.update.MemberUpdateRequestDto;
+import com.librarian.dto.responseDto.LoanGetResponseDto;
 import com.librarian.dto.responseDto.MemberGetResponseDto;
+import com.librarian.dto.responseDto.ReservationGetResponseDto;
 import com.librarian.exception.ResourceNotFoundException;
 import com.librarian.model.Address;
 import com.librarian.model.Loan;
@@ -26,8 +28,8 @@ import java.util.stream.Collectors;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-//    private final ReservationRepository reservationRepository;
-//    private final LoanRepository loanRepository;*/
+    private final ReservationRepository reservationRepository;
+    private final LoanRepository loanRepository;
 
     @Qualifier("modelMapper")
     private final ModelMapper modelMapper;
@@ -80,16 +82,23 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-/*
-    public List<Reservation> getReservationsByMember(Long memberId) {
-        Member member = getMemberById(memberId);
-        return reservationRepository.findByMemberOrderByReservationDateDesc(member);
+    public List<ReservationGetResponseDto> getReservationsByMember(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + memberId));
+
+        return member.getReservations().stream()
+                .map(reservation -> modelMapper.map(reservation, ReservationGetResponseDto.class))
+                .collect(Collectors.toList());
     }
 
-    public List<Loan> getLoansByMember(Long memberId) {
-        Member member = getMemberById(memberId);
-        return loanRepository.findByMemberOrderByLoanDateDesc(member);
+    public List<LoanGetResponseDto> getLoansByMember(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + memberId));
+
+        return member.getLoans().stream()
+                .map(loan -> modelMapper.map(loan, LoanGetResponseDto.class))
+                .collect(Collectors.toList());
     }
 
-*/
+
 }

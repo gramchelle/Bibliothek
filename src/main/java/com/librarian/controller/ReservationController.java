@@ -1,9 +1,8 @@
 package com.librarian.controller;
-/*
-import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
+
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
-import com.librarian.dto.requestDto.update.LoanStatusUpdateRequestDto;
 import com.librarian.dto.requestDto.update.ReservationUpdateRequestDto;
+import com.librarian.dto.responseDto.ReservationGetResponseDto;
 import com.librarian.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,23 +18,22 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @PostMapping("/saveReservation")
-    public ResponseEntity<Boolean> saveReservation(@RequestBody LoanSaveRequestDto reservationSaveRequestDto){
+    @PostMapping("/save")
+    public ResponseEntity<Boolean> saveReservation(@RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
         Boolean saveReservation = reservationService.saveReservation(reservationSaveRequestDto);
         return new ResponseEntity<>(saveReservation, HttpStatus.CREATED);
     }
-/* /////////////////////////
+
     @PutMapping("/update")
-    public Boolean updateReservation(@RequestBody ReservationUpdateRequestDto reservationUpdateRequestDto) {
-        reservationService.updateLoanStatus(reservationUpdateRequestDto);
-        return true;
+    public ResponseEntity<Boolean> updateReservation(@RequestBody ReservationUpdateRequestDto reservationUpdateRequestDto) {
+        Boolean updateResult = reservationService.updateReservation(reservationUpdateRequestDto);
+        return new ResponseEntity<>(updateResult, HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<ReservationSaveRequestDto>> getAllReservations() {
-        List<ReservationSaveRequestDto> reservationSaveRequestDtos = reservationService.getAllReservations();
-        return new ResponseEntity<>(reservationSaveRequestDtos, HttpStatus.OK);
+    public ResponseEntity<List<ReservationGetResponseDto>> getAllReservations() {
+        List<ReservationGetResponseDto> reservationGetResponseDtos = reservationService.getAllReservations();
+        return new ResponseEntity<>(reservationGetResponseDtos, HttpStatus.OK);
     }
 
 }
-*/

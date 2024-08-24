@@ -1,10 +1,9 @@
 package com.librarian.service;
-/*
-import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
+
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
-import com.librarian.dto.requestDto.update.*;
+import com.librarian.dto.requestDto.update.ReservationUpdateRequestDto;
+import com.librarian.dto.responseDto.ReservationGetResponseDto;
 import com.librarian.exception.ResourceNotFoundException;
-import com.librarian.model.Loan;
 import com.librarian.model.Reservation;
 import com.librarian.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,27 +19,32 @@ import java.util.stream.Collectors;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+
     @Qualifier("modelMapper")
     private final ModelMapper modelMapper;
 
-    public Boolean saveReservation(LoanSaveRequestDto reservationSaveRequestDto) {
+    public Boolean saveReservation(ReservationSaveRequestDto reservationSaveRequestDto) {
         Reservation reservation = modelMapper.map(reservationSaveRequestDto, Reservation.class);
         reservationRepository.save(reservation);
         return true;
     }
-/* //////////////////////////////////////
-    public void updateLoanStatus(ReservationUpdateRequestDto reservationUpdateRequestDto) {
+
+    public Boolean updateReservation(ReservationUpdateRequestDto reservationUpdateRequestDto) {
         Reservation reservation = reservationRepository.findById(reservationUpdateRequestDto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Loan not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
+
+        // Update reservation fields as necessary
+        reservation.setReservationDate(reservationUpdateRequestDto.getReservationDate());
         reservation.setStatus(reservationUpdateRequestDto.getStatus());
+
         reservationRepository.save(reservation);
+        return true;
     }
 
-    public List<ReservationSaveRequestDto> getAllReservations() {
+    public List<ReservationGetResponseDto> getAllReservations() {
         List<Reservation> reservations = (List<Reservation>) reservationRepository.findAll();
         return reservations.stream()
-                .map(reservation -> modelMapper.map(reservation, ReservationSaveRequestDto.class))
+                .map(reservation -> modelMapper.map(reservation, ReservationGetResponseDto.class))
                 .collect(Collectors.toList());
     }
 }
-*/

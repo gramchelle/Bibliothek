@@ -1,5 +1,5 @@
 package com.librarian.controller;
-/*
+
 import com.librarian.dto.responseDto.SearchResultDto;
 import com.librarian.service.SearchService;
 import lombok.AllArgsConstructor;
@@ -23,4 +23,3 @@ public class SearchController {
         return service.search(keyword);
     }
 }
-*/

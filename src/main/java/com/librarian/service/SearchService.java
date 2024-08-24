@@ -1,5 +1,5 @@
 package com.librarian.service;
-/*
+
 import com.librarian.dto.responseDto.SearchResultDto;
 import com.librarian.model.Book;
 import com.librarian.model.Member;
@@ -17,7 +17,7 @@ public class SearchService {
 
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
-    //private final ReservationRepository reservationRepository;
+    private final ReservationRepository reservationRepository;
 
     public SearchResultDto search(String keyword) {
         List<Book> books = bookRepository.findByTitleContainingIgnoreCase(keyword);
@@ -32,4 +32,3 @@ public class SearchService {
     }
 
 }
-*/
