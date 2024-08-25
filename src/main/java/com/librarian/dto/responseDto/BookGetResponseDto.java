@@ -10,13 +10,11 @@ import java.util.UUID;
 
 public class BookGetResponseDto {
 
-    @Qualifier("modelMapper")
-    private ModelMapper modelMapper;
-
+    private long id;
     private UUID isbn;
     private String title;
     private String author;
-    private LocalDate publicationYear;
+    private int publicationYear;
     private String category;
 
 }

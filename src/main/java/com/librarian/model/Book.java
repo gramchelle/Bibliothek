@@ -19,13 +19,13 @@ public class Book {
     @Column(length = 36, nullable = false, unique = true)
     private UUID isbn;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(nullable = false)
     private String author;
 
-    @Column
+    @Column(nullable = false)
     private String category;
 
     @Column(nullable = false)

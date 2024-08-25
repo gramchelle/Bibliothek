@@ -4,15 +4,12 @@ package com.librarian.dto.requestDto.save;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 public class MemberSaveRequestDto {
-
     private String name;
     private String surname;
     private String email;
-    private String phoneNumber;
-    private LocalDate birthDate;
+    private int birth_year;
+    private String phone_number;
 }

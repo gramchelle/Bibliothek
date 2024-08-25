@@ -15,5 +15,5 @@ public class LoanGetResponseDto {
     private LocalDateTime loanDate;
     private LocalDate dueDate;
     private LocalDate returnDate;
-    private BookSaveRequestDto book;
+    private BookGetResponseDto book;
 }

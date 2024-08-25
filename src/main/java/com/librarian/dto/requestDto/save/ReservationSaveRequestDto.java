@@ -9,11 +9,9 @@ import java.time.LocalDate;
 @Setter
 public class ReservationSaveRequestDto {
 
-    private Long id;
     private Long bookId;
     private Long memberId;
     private LocalDate reservationDate;
-    private LocalDate loanDate;
     private LocalDate dueDate;
     private LocalDate returnDate;
     private String status;

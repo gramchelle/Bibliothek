@@ -4,7 +4,7 @@ import com.librarian.dto.requestDto.save.StaffSaveRequestDto;
 import com.librarian.dto.requestDto.update.StaffUpdateRequestDto;
 import com.librarian.dto.responseDto.MemberGetResponseDto;
 import com.librarian.dto.responseDto.StaffGetResponseDto;
-import com.librarian.model.Member;
+import com.librarian.exception.ResourceNotFoundException;
 import com.librarian.model.Staff;
 import com.librarian.repository.StaffRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class StaffService {
 
     private final StaffRepository staffRepository;
+
     @Qualifier("modelMapper")
     private final ModelMapper modelMapper;
 
@@ -50,10 +52,10 @@ public class StaffService {
         }
     }
 
-    public boolean updateStaff(StaffUpdateRequestDto staffUpdateRequestDto) {
-        if (staffRepository.existsById(staffUpdateRequestDto.getId())) {
-            Staff staff = new Staff();
-            staff.setId(staffUpdateRequestDto.getId());
+    public boolean updateStaff(StaffUpdateRequestDto staffUpdateRequestDto, Long staffId) {
+        Optional<Staff> existingStaff = staffRepository.findById(staffId);
+        if (existingStaff.isPresent()) {
+            Staff staff = existingStaff.get();
             staff.setName(staffUpdateRequestDto.getName());
             staff.setLastName(staffUpdateRequestDto.getLastName());
             staff.setPosition(staffUpdateRequestDto.getPosition());
@@ -63,5 +65,12 @@ public class StaffService {
         } else {
             return false;
         }
+    }
+
+    public Staff getStaffById(Long staffId) {
+        Staff staff = staffRepository.findById(staffId)
+                .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + staffId));
+        return modelMapper.map(staff, Staff.class);
+
     }
 }

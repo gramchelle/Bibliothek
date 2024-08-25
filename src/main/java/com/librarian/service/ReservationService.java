@@ -5,7 +5,6 @@ import com.librarian.dto.requestDto.update.ReservationUpdateRequestDto;
 import com.librarian.dto.responseDto.ReservationGetResponseDto;
 import com.librarian.exception.ResourceNotFoundException;
 import com.librarian.model.Reservation;
-import com.librarian.model.ReservationStatus;
 import com.librarian.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
-
     @Qualifier("modelMapper")
     private final ModelMapper modelMapper;
 
@@ -34,19 +32,24 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(reservationUpdateRequestDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
 
-        // Update reservation fields
         reservation.setReservationDate(reservationUpdateRequestDto.getReservationDate());
-        reservation.setStatus(ReservationStatus.valueOf(reservationUpdateRequestDto.getStatus()));
+        reservation.setStatus(reservationUpdateRequestDto.getStatus()); // doğrudan string
 
         reservationRepository.save(reservation);
         return true;
     }
 
+
     public List<ReservationGetResponseDto> getAllReservations() {
-        List<Reservation> reservations = (List<Reservation>) reservationRepository.findAll();
+        List<Reservation> reservations = reservationRepository.findAll();
         return reservations.stream()
                 .map(reservation -> modelMapper.map(reservation, ReservationGetResponseDto.class))
                 .collect(Collectors.toList());
     }
+
+    public List<Reservation> searchReservations(String status) {
+        return reservationRepository.findByStatusContainingIgnoreCase(status);
+    }
+
 }
 

@@ -4,6 +4,7 @@ import com.librarian.dto.requestDto.save.StaffSaveRequestDto;
 import com.librarian.dto.requestDto.update.StaffUpdateRequestDto;
 import com.librarian.dto.responseDto.MemberGetResponseDto;
 import com.librarian.dto.responseDto.StaffGetResponseDto;
+import com.librarian.model.Staff;
 import com.librarian.service.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class StaffController {
 
     private final StaffService staffService;
 
-    @PostMapping("/saveStaff")
-    public ResponseEntity<Boolean> saveBook(@RequestBody StaffSaveRequestDto staffSaveRequestDto){
+    @PostMapping("/save")
+    public ResponseEntity<Boolean> saveStaff(@RequestBody StaffSaveRequestDto staffSaveRequestDto){
         Boolean saveStaff = staffService.saveStaff(staffSaveRequestDto);
         return new ResponseEntity<>(saveStaff, HttpStatus.CREATED);
     }
@@ -31,24 +32,32 @@ public class StaffController {
         return ResponseEntity.ok(staffGetResponseDtos);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteStaff(@PathVariable Long id) {
-        boolean isDeleted = staffService.deleteStaffById(id);
+    @GetMapping("/byId/{staffId}")
+    public ResponseEntity<Staff> getStaffById(@PathVariable Long staffId) {
+        Staff staff = staffService.getStaffById(staffId);
+        return new ResponseEntity<>(staff, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{staffId}")
+    public ResponseEntity<String> deleteStaffById(@PathVariable Long staffId) {
+        boolean isDeleted = staffService.deleteStaffById(staffId);
         if (isDeleted) {
-            return ResponseEntity.ok("Staff deleted successfully");
+            return ResponseEntity.ok("Staff deleted successfully.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Staff not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Staff not found with the id" + staffId);
         }
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateStaff(@RequestBody StaffUpdateRequestDto staffUpdateRequestDto) {
-        boolean isUpdated = staffService.updateStaff(staffUpdateRequestDto);
+    @PutMapping("/update/{staffId}")
+    public ResponseEntity<String> updateStaff(@RequestBody StaffUpdateRequestDto staffUpdateRequestDto,
+                                              @PathVariable Long staffId) {
+        boolean isUpdated = staffService.updateStaff(staffUpdateRequestDto, staffId);
         if (isUpdated) {
-            return ResponseEntity.ok("Staff updated successfully");
+            return ResponseEntity.ok("Staff updated successfully.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Staff not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Staff not found with the id" + staffId);
         }
     }
+
 
 }

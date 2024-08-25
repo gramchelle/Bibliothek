@@ -1,9 +1,11 @@
 package com.librarian.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -15,18 +17,26 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "bookId")
+    @JoinColumn(name = "book_id")
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "memberId")
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column
+    @Column(name = "loan_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDate reservationDate;
 
-    @Enumerated(EnumType.STRING)
-//    @Column
-    private ReservationStatus status;
+    @Column(name = "due_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dueDate;
+
+    @Column(name = "return_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate returnDate;
+
+    @Column(nullable = false)
+    private String status;
 
 }

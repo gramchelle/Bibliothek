@@ -3,32 +3,30 @@ package com.librarian.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "member")
 @Data
 public class Member {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private String surname;
 
-    @Column
+    @Column(nullable = false)
     private String email;
 
-    @Column
-    private String phoneNumber;
+    @Column(nullable = false, name = "phone_number")
+    private String phone_number;
 
-    @Column
-    private LocalDate birthDate;
+    @Column(nullable = false, name = "birth_year")
+    private int birth_year;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Address> address;
@@ -38,5 +36,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Loan> loans;
+
 }
 

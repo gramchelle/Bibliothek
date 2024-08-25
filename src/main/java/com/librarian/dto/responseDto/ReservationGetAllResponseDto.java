@@ -8,9 +8,10 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class ReservationGetResponseDto {
+public class ReservationGetAllResponseDto {
     private Long id;
+    private Long member_id;
+    private String title;
     private LocalDate reservationDate;
     private LocalDate dueDate;
-    private String title;
 }

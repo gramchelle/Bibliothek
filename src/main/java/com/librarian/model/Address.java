@@ -27,7 +27,7 @@ public class Address {
     @Column
     private String street;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @JsonBackReference
     private Member member;

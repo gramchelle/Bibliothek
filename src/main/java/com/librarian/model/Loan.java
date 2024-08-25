@@ -36,7 +36,6 @@ public class Loan {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate returnDate;
 
-    @Enumerated(EnumType.STRING)
-//    @Column
-    private LoanStatus status;
+    @Column(nullable = false)
+    private String status;
 }

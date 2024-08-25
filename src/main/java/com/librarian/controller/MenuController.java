@@ -21,6 +21,7 @@ public class MenuController {
         menu.put("books", "/book/getAll");
         menu.put("members", "/member/getAll");
         menu.put("reservations", "/reservations");
+        menu.put("staff", "/staff");
         menu.put("search", "/search?keyword=");
 
         return new ResponseEntity<>(menu, HttpStatus.OK);

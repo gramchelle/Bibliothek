@@ -1,9 +1,11 @@
 package com.librarian.controller;
 
+import com.librarian.dto.requestDto.save.BookSaveRequestDto;
 import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
 import com.librarian.dto.requestDto.save.MemberSaveRequestDto;
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
 import com.librarian.dto.requestDto.update.MemberUpdateRequestDto;
+import com.librarian.dto.responseDto.AddressGetResponseDto;
 import com.librarian.dto.responseDto.LoanGetResponseDto;
 import com.librarian.dto.responseDto.MemberGetResponseDto;
 import com.librarian.dto.responseDto.ReservationGetResponseDto;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/member")
@@ -42,12 +45,12 @@ public class MemberController {
     }
 
     @PostMapping("/saveMember")
-    public ResponseEntity<Boolean> saveMember(@RequestBody MemberSaveRequestDto memberSaveRequestDto) {
+    public ResponseEntity<Boolean> saveBook(@RequestBody MemberSaveRequestDto memberSaveRequestDto){
         if (memberSaveRequestDto.getName() == null || memberSaveRequestDto.getEmail() == null) {
             return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
         }
-        boolean isMemberSaved = memberService.saveMember(memberSaveRequestDto);
-        return new ResponseEntity<>(isMemberSaved, HttpStatus.OK);
+        Boolean isMemberSaved = memberService.saveMember(memberSaveRequestDto);
+        return new ResponseEntity<>(isMemberSaved, HttpStatus.CREATED);
     }
 
 
@@ -83,9 +86,18 @@ public class MemberController {
     }
 
     @PostMapping("/{memberId}/addReservation")
-    public ResponseEntity<Void> addReservation(@PathVariable Long memberId, @RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
-        memberService.addReservation(memberId, reservationSaveRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<String> addReservation(@PathVariable Long memberId,
+                                                 @RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
+        try {
+            boolean isAdded = memberService.addReservation(memberId, reservationSaveRequestDto);
+            if (isAdded) {
+                return ResponseEntity.ok("Reservation added successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to add reservation");
+            }
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PostMapping("/{memberId}/addLoan")
@@ -94,7 +106,12 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-// get address
+    @GetMapping("/{memberId}/addresses")
+    public ResponseEntity<List<AddressGetResponseDto>> getAddressesByMember(@PathVariable Long memberId) {
+        List<AddressGetResponseDto> addresses = memberService.getAddressesByMember(memberId);
+        return new ResponseEntity<>(addresses, HttpStatus.OK);
+    }
+
 
     @GetMapping("/{memberId}/reservations")
     public ResponseEntity<List<ReservationGetResponseDto>> getReservationsByMember(@PathVariable Long memberId) {
