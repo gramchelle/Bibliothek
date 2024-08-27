@@ -1,18 +1,16 @@
 package com.librarian.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
+@Data
 public class Role {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String name;
+
 }

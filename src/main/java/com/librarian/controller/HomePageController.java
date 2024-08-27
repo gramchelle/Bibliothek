@@ -10,7 +10,7 @@ public class HomePageController {
 
     @GetMapping("/home")
     public ResponseEntity<String> greet(){
-        String greeting = "Welcome To Librarian.com";
+        String greeting = "Welcome to the Bibliothek.com\nA Contemporary Place to Find Books Written for You!";
         return new ResponseEntity<>(greeting, HttpStatus.OK);
     }
 }

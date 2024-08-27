@@ -12,4 +12,5 @@ import java.util.UUID;
 public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findByTitleContainingIgnoreCase(String title);
 
+    List<Book> findTop10ByOrderByTimesLoanedDesc();
 }

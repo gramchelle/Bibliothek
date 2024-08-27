@@ -1,8 +1,11 @@
 package com.librarian.controller;
 
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
+import com.librarian.dto.requestDto.update.MemberUpdateRequestDto;
 import com.librarian.dto.requestDto.update.ReservationUpdateRequestDto;
+import com.librarian.dto.responseDto.MemberGetResponseDto;
 import com.librarian.dto.responseDto.ReservationGetResponseDto;
+import com.librarian.model.Member;
 import com.librarian.model.Reservation;
 import com.librarian.service.ReservationService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reservation")
+@RequestMapping("/reservations")
 @RequiredArgsConstructor
 public class ReservationController {
 
@@ -25,10 +28,10 @@ public class ReservationController {
         return new ResponseEntity<>(saveReservation, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Boolean> updateReservation(@RequestBody ReservationUpdateRequestDto reservationUpdateRequestDto) {
-        Boolean updateResult = reservationService.updateReservation(reservationUpdateRequestDto);
-        return new ResponseEntity<>(updateResult, HttpStatus.OK);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Reservation> updateReservation(@PathVariable Long id, @RequestBody ReservationUpdateRequestDto dto) {
+        Reservation updatedReservation = reservationService.updateReservation(id, dto);
+        return ResponseEntity.ok(updatedReservation);
     }
 
     @GetMapping("/getAll")
@@ -42,4 +45,19 @@ public class ReservationController {
         List<Reservation> reservations = reservationService.searchReservations(status);
         return ResponseEntity.ok(reservations);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
+        reservationService.deleteReservation(id);
+        return ResponseEntity.noContent().build(); // 204 No Content
+    }
+
+//    @GetMapping("/getById/{reservationId}")
+//    public ResponseEntity<ReservationGetResponseDto> getReservationById(@PathVariable Long reservationId) {
+//        ReservationGetResponseDto responseDto = reservationService.getReservationById(reservationId);
+//        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+//    }
+
+
+
 }

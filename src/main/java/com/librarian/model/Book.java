@@ -31,4 +31,9 @@ public class Book {
     @Column(nullable = false)
     private int publicationYear;
 
+    @OneToMany(mappedBy = "book")
+    private List<Feedback> feedbacks;
+
+    private int timesLoaned;
+
 }

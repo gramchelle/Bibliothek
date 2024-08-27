@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+
     @Qualifier("modelMapper")
     private final ModelMapper modelMapper;
 
@@ -28,16 +29,26 @@ public class ReservationService {
         return true;
     }
 
-    public Boolean updateReservation(ReservationUpdateRequestDto reservationUpdateRequestDto) {
-        Reservation reservation = reservationRepository.findById(reservationUpdateRequestDto.getId())
+    public Reservation updateReservation(Long id, ReservationUpdateRequestDto reservationUpdateRequestDto) {
+        Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
 
         reservation.setReservationDate(reservationUpdateRequestDto.getReservationDate());
-        reservation.setStatus(reservationUpdateRequestDto.getStatus()); // doğrudan string
+        reservation.setStatus(reservationUpdateRequestDto.getStatus());
 
-        reservationRepository.save(reservation);
-        return true;
+        return reservationRepository.save(reservation);
     }
+
+//    public ReservationGetResponseDto getReservationById(Long reservationId) {
+//        Reservation reservation = reservationRepository.findById(reservationId)
+//                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
+//
+//        return new ReservationGetResponseDto(
+//                reservation.getId(),
+//                reservation.getReservationDate(),
+//                reservation.getStatus()
+//        );
+//    }
 
 
     public List<ReservationGetResponseDto> getAllReservations() {
@@ -49,6 +60,12 @@ public class ReservationService {
 
     public List<Reservation> searchReservations(String status) {
         return reservationRepository.findByStatusContainingIgnoreCase(status);
+    }
+
+    public void deleteReservation(Long id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
+        reservationRepository.delete(reservation);
     }
 
 }

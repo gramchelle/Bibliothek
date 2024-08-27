@@ -25,8 +25,8 @@ public class Loan {
     private Member member;
 
     @Column(name = "loan_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime loanDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate loanDate;
 
     @Column(name = "due_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -38,4 +38,7 @@ public class Loan {
 
     @Column(nullable = false)
     private String status;
+
+    @Column(nullable = false)
+    private boolean isReturned;
 }

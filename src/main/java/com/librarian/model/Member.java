@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "member")
@@ -36,6 +37,11 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Loan> loans;
+
+//    private boolean isAdmin = false;
+
+    @OneToMany(mappedBy = "member")
+    private List<Feedback> feedbacks;
 
 }
 
