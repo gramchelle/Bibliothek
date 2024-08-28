@@ -26,7 +26,7 @@ Bibliothek offers a comprehensive set of features designed to streamline the man
 - JDK 21 or Higher
 - Maven 3.6.0 or higher
 - A database either built-in (H2, SQLite), or explicit (MySQL, PostgreSQL, etc.)
-- 
+  
 ### Steps
 ``` git clone https://github.com/gramchelle/Bibliothek.git ```
   
