@@ -38,7 +38,8 @@ Bibliothek offers a comprehensive set of features designed to streamline the man
 
 ### Necessary URLs and Request Bodies
 
-Are provided in this document: [Postman - Bibliothek](https://api.postman.com/collections/37170721-9e4e7fa6-bc97-445c-a735-2cf7736e25fe?access_key=PMAT-01J6C7EZVQGGFNY3QZBAHNH483)
+Are provided in this document: [Postman - Bibliothek](https://documenter.getpostman.com/view/37170721/2sAXjGcDyr
+)
 ### Packages
 - Configuration: Application configuration settings.
 - Controller: Classes that handle HTTP requests.
