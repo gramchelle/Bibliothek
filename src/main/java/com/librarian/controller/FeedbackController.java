@@ -15,17 +15,25 @@ public class FeedbackController {
     private final FeedbackService feedbackService;
 
     @PostMapping("/add/{bookId}/{memberId}")
-    public FeedbackGetResponseDto addFeedback(@PathVariable Long bookId, @PathVariable Long memberId, @RequestBody FeedbackGetResponseDto feedbackDto) {
-        return feedbackService.saveFeedback(bookId, memberId, feedbackDto);
+    public FeedbackGetResponseDto addFeedback(
+            @PathVariable Long bookId,
+            @PathVariable Long memberId,
+            @RequestBody FeedbackGetResponseDto feedbackDto) {
+        return feedbackService.saveFeedback(bookId, memberId,
+                feedbackDto);
     }
 
     @GetMapping("/book/{bookId}")
-    public List<FeedbackGetResponseDto> getFeedbacksByBook(@PathVariable Long bookId) {
+    public List<FeedbackGetResponseDto> getFeedbacksByBook(
+                                    @PathVariable Long bookId) {
         return feedbackService.getFeedbacksByBook(bookId);
     }
 
     @GetMapping("/member/{memberId}")
-    public List<FeedbackGetResponseDto> getFeedbacksByMember(@PathVariable Long memberId) {
+    public List<FeedbackGetResponseDto> getFeedbacksByMember(
+                                    @PathVariable Long memberId) {
         return feedbackService.getFeedbacksByMember(memberId);
     }
 }
+
+

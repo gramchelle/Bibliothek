@@ -23,7 +23,8 @@ public class FeedbackService {
     private final MemberRepository memberRepository;
     private final FeedbackMapper feedbackMapper;
 
-    public FeedbackGetResponseDto saveFeedback(Long bookId, Long memberId, FeedbackGetResponseDto feedbackDto) {
+    public FeedbackGetResponseDto saveFeedback(Long bookId, Long memberId,
+                                               FeedbackGetResponseDto feedbackDto) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new RuntimeException("Book not found"));
         Member member = memberRepository.findById(memberId)
@@ -50,3 +51,4 @@ public class FeedbackService {
                 .collect(Collectors.toList());
     }
 }
+

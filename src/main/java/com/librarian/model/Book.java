@@ -1,5 +1,6 @@
 package com.librarian.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,7 +16,8 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 36, nullable = false, unique = true)
+    @Column(length = 36, nullable = false,
+            unique = true)
     private UUID isbn;
 
     @Column(nullable = false)
@@ -31,8 +33,9 @@ public class Book {
     private int publicationYear;
 
     @OneToMany(mappedBy = "book")
+    @JsonManagedReference
     private List<Feedback> feedbacks;
 
     private int timesLoaned;
-
 }
+

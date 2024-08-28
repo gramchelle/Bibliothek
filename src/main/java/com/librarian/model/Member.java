@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "member")
@@ -31,19 +30,16 @@ public class Member {
     @Column(nullable = false, name = "birth_year")
     private int birth_year;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     @JsonIgnore
     private List<Address> address;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonIgnore
     private List<Reservation> reservations;
-
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Loan> loans;
-
-//    private boolean isAdmin = false;
 
     @OneToMany(mappedBy = "member")
     @JsonIgnore
@@ -51,3 +47,9 @@ public class Member {
 
 }
 
+
+
+//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Loan> loans;
+
+//    private boolean isAdmin = false;

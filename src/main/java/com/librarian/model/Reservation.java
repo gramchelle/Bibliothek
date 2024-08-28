@@ -24,18 +24,22 @@ public class Reservation {
     private Member member;
 
     @Column(name = "loan_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd")
     private LocalDate reservationDate;
 
     @Column(name = "due_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
 
     @Column(name = "return_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd")
     private LocalDate returnDate;
 
     @Column(nullable = false)
     private String status;
 
 }
+

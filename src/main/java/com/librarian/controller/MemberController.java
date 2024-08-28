@@ -56,9 +56,9 @@ public class MemberController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<MemberGetResponseDto>> getAllMembers() {
-        List<MemberGetResponseDto> responseDtoList = memberService.getAllMembers();
-        return new ResponseEntity<>(responseDtoList, HttpStatus.OK);
+    public ResponseEntity<List<Member>> getAllMembers() {
+        List<Member> memberList = memberService.getAllMembers();
+        return new ResponseEntity<>(memberList, HttpStatus.OK);
     }
 
     @GetMapping("/getById/{memberId}")
@@ -74,15 +74,19 @@ public class MemberController {
     }
 
     @PostMapping("/{memberId}/addAddress")
-    public ResponseEntity<MemberGetResponseDto> addAddressToMember(@PathVariable Long memberId, @RequestBody Address address) {
+    public ResponseEntity<MemberGetResponseDto> addAddressToMember(
+            @PathVariable Long memberId,
+            @RequestBody Address address) {
         Member member = memberService.addAddressToMember(memberId, address);
-        MemberGetResponseDto responseDto = modelMapper.map(member, MemberGetResponseDto.class);
+        MemberGetResponseDto responseDto = modelMapper.map(member,
+                MemberGetResponseDto.class);
         return ResponseEntity.ok(responseDto);
     }
 
     @PostMapping("/{memberId}/addReservation")
-    public ResponseEntity<String> addReservation(@PathVariable Long memberId,
-                                                 @RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
+    public ResponseEntity<String> addReservation(
+            @PathVariable Long memberId,
+            @RequestBody ReservationSaveRequestDto reservationSaveRequestDto) {
         try {
             boolean isAdded = memberService.addReservation(memberId, reservationSaveRequestDto);
             if (isAdded) {

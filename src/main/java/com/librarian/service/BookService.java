@@ -21,8 +21,8 @@ public class BookService {
     @Qualifier("modelMapper")
     private final ModelMapper modelMapper;
 
-    public boolean saveBook(BookSaveRequestDto bookSaveRequestDto) {
-        Book book = modelMapper.map(bookSaveRequestDto, Book.class);
+    public boolean saveBook(BookSaveRequestDto bookSaveRequestDto){
+        Book book = modelMapper.map(bookSaveRequestDto,Book.class);
         bookRepository.save(book);
         return true;
     }
@@ -41,14 +41,14 @@ public class BookService {
         return true;
     }
 
-    public Book updateBook(Long bookId, BookUpdateRequestDto bookUpdateRequestDto) {
+    public Book updateBook(Long bookId,
+                           BookUpdateRequestDto bookUpdateRequestDto) {
         Book existingBook = bookRepository.findById(bookId).orElse(null);
 
         if (existingBook != null) {
             existingBook.setTitle(bookUpdateRequestDto.getTitle());
             existingBook.setAuthor(bookUpdateRequestDto.getAuthor());
             existingBook.setCategory(bookUpdateRequestDto.getCategory());
-
             return bookRepository.save(existingBook);
         } else {
             return null;
@@ -60,5 +60,9 @@ public class BookService {
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found with ID: " + bookId));
         book.setTimesLoaned(book.getTimesLoaned() + 1);
         bookRepository.save(book);
+    }
+
+    public List<Book> searchBooksByTitle(String title) {
+        return bookRepository.findByTitleContainingIgnoreCase(title);
     }
 }

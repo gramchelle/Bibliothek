@@ -49,14 +49,20 @@ public class BookController {
     @PutMapping("/updateById/{bookId}")
     public ResponseEntity<Book> updateBook(
             @PathVariable Long bookId,
-            @RequestBody BookUpdateRequestDto bookUpdateRequestDto) {
+            @RequestBody BookUpdateRequestDto bookUpdateRequestDto){
 
-        Book updatedBook = bookService.updateBook(bookId, bookUpdateRequestDto);
+        Book updatedBook = bookService.updateBook(bookId,
+                bookUpdateRequestDto);
         if (updatedBook != null) {
             return ResponseEntity.ok(updatedBook);
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/search")
+    public List<Book> searchBooks(@RequestParam String title) {
+        return bookService.searchBooksByTitle(title);
     }
 
 }

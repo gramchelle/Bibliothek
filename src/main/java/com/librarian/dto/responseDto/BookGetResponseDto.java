@@ -1,13 +1,11 @@
 package com.librarian.dto.responseDto;
 
-import com.librarian.dto.requestDto.save.BookSaveRequestDto;
-import com.librarian.model.Book;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.time.LocalDate;
+import lombok.*;
 import java.util.UUID;
 
+@Getter
+@Setter
 public class BookGetResponseDto {
 
     private long id;

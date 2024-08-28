@@ -44,15 +44,8 @@ public class MemberService {
 //        return memberRepository.findByEmail(email).isPresent();
 //    }
 
-    public List<MemberGetResponseDto> getAllMembers() {
-        List<Member> members = memberRepository.findAll();
-        return members.stream().map(member -> {
-            MemberGetResponseDto responseDto = new MemberGetResponseDto();
-            responseDto.setId(member.getId());
-            responseDto.setName(member.getName());
-            responseDto.setEmail(member.getEmail());
-            return responseDto;
-        }).collect(Collectors.toList());
+    public List<Member> getAllMembers() {
+        return memberRepository.findAll();
     }
 
     public MemberGetResponseDto getMemberById(Long memberId) {
@@ -110,21 +103,22 @@ public class MemberService {
         return true;
     }
 
+/*
+    @Transactional
+    public void addLoan(Long memberId, LoanSaveRequestDto loanSaveRequestDto) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
 
-//    @Transactional
-//    public void addLoan(Long memberId, LoanSaveRequestDto loanSaveRequestDto) {
-//        Member member = memberRepository.findById(memberId)
-//                .orElseThrow(() -> new RuntimeException("Member not found"));
-//
-//        Book book = bookRepository.findById(loanSaveRequestDto.getBookId())
-//                .orElseThrow(() -> new RuntimeException("Book not found"));
-//
-//        Loan loan = modelMapper.map(loanSaveRequestDto, Loan.class);
-//        loan.setMember(member);
-//        loan.setBook(book);
-//
-//        loanRepository.save(loan);
-//    }
+        Book book = bookRepository.findById(loanSaveRequestDto.getBookId())
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+
+        Loan loan = modelMapper.map(loanSaveRequestDto, Loan.class);
+        loan.setMember(member);
+        loan.setBook(book);
+
+        loanRepository.save(loan);
+    }
+*/
 
     public List<AddressGetResponseDto> getAddressesByMember(Long memberId) {
         Member member = memberRepository.findById(memberId)
@@ -137,7 +131,7 @@ public class MemberService {
 
     public List<ReservationGetResponseDto> getReservationsByMember(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + memberId));
+                .orElseThrow(() -> new ResourceNotFoundException("Member not found with"));
 
         return member.getReservations().stream()
                 .map(reservation -> {
