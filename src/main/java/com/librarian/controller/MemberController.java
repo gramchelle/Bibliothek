@@ -1,18 +1,14 @@
 package com.librarian.controller;
 
-import com.librarian.dto.requestDto.save.BookSaveRequestDto;
-import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
 import com.librarian.dto.requestDto.save.MemberSaveRequestDto;
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
 import com.librarian.dto.requestDto.update.MemberUpdateRequestDto;
 import com.librarian.dto.responseDto.AddressGetResponseDto;
-import com.librarian.dto.responseDto.LoanGetResponseDto;
+import com.librarian.dto.responseDto.*;
 import com.librarian.dto.responseDto.MemberGetResponseDto;
 import com.librarian.dto.responseDto.ReservationGetResponseDto;
 import com.librarian.model.Address;
-import com.librarian.model.Loan;
 import com.librarian.model.Member;
-import com.librarian.model.Reservation;
 import com.librarian.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/member")
@@ -55,10 +50,10 @@ public class MemberController {
 
 
     @DeleteMapping("/deleteMemberById/{memberId}")
-        public ResponseEntity<Boolean> deleteMember(@PathVariable Long memberId) {
-            Boolean isMemberDeleted = memberService.deleteMemberById(memberId);
-            return new ResponseEntity<>(isMemberDeleted, HttpStatus.OK);
-        }
+    public ResponseEntity<Boolean> deleteMember(@PathVariable Long memberId) {
+        Boolean isMemberDeleted = memberService.deleteMemberById(memberId);
+        return new ResponseEntity<>(isMemberDeleted, HttpStatus.OK);
+    }
 
     @GetMapping("/getAll")
     public ResponseEntity<List<MemberGetResponseDto>> getAllMembers() {
@@ -100,11 +95,11 @@ public class MemberController {
         }
     }
 
-    @PostMapping("/{memberId}/addLoan")
-    public ResponseEntity<Void> addLoan(@PathVariable Long memberId, @RequestBody LoanSaveRequestDto loanSaveRequestDto) {
-        memberService.addLoan(memberId, loanSaveRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+//    @PostMapping("/{memberId}/addLoan")
+//    public ResponseEntity<Void> addLoan(@PathVariable Long memberId, @RequestBody LoanSaveRequestDto loanSaveRequestDto) {
+//        memberService.addLoan(memberId, loanSaveRequestDto);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
 
     @GetMapping("/{memberId}/addresses")
     public ResponseEntity<List<AddressGetResponseDto>> getAddressesByMember(@PathVariable Long memberId) {
@@ -119,9 +114,9 @@ public class MemberController {
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
-    @GetMapping("/{memberId}/loans")
-    public ResponseEntity<List<LoanGetResponseDto>> getLoansByMember(@PathVariable Long memberId) {
-        List<LoanGetResponseDto> loans = memberService.getLoansByMember(memberId);
-        return new ResponseEntity<>(loans, HttpStatus.OK);
-    }
+//    @GetMapping("/{memberId}/loans")
+//    public ResponseEntity<List<LoanGetResponseDto>> getLoansByMember(@PathVariable Long memberId) {
+//        List<LoanGetResponseDto> loans = memberService.getLoansByMember(memberId);
+//        return new ResponseEntity<>(loans, HttpStatus.OK);
+//    }
 }

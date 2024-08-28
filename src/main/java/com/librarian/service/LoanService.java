@@ -1,5 +1,5 @@
 package com.librarian.service;
-
+/*
 import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
 import com.librarian.dto.requestDto.update.LoanUpdateRequestDto;
 import com.librarian.dto.responseDto.LoanGetResponseDto;
@@ -71,3 +71,4 @@ public class LoanService {
         return loanRepository.findByStatusContainingIgnoreCase(status);
     }
 }
+*/

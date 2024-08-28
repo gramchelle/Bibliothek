@@ -2,25 +2,22 @@ package com.librarian.service;
 
 import com.librarian.dto.requestDto.save.BookSaveRequestDto;
 import com.librarian.dto.requestDto.update.BookUpdateRequestDto;
-import com.librarian.dto.responseDto.BookGetResponseDto;
 import com.librarian.exception.ResourceNotFoundException;
 import com.librarian.model.Book;
 import com.librarian.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BookService {
 
     private final BookRepository bookRepository;
+
     @Qualifier("modelMapper")
     private final ModelMapper modelMapper;
 
@@ -58,5 +55,10 @@ public class BookService {
         }
     }
 
-
+    public void incrementBookLoanCount(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with ID: " + bookId));
+        book.setTimesLoaned(book.getTimesLoaned() + 1);
+        bookRepository.save(book);
+    }
 }

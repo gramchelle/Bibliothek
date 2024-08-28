@@ -1,5 +1,5 @@
 package com.librarian.dto.requestDto.update;
-
+/*
 import com.librarian.model.Book;
 import com.librarian.model.Member;
 import lombok.Getter;
@@ -23,6 +23,6 @@ public class LoanUpdateRequestDto {
     private Boolean isReturned;
 
 
-    // Statuses: Borrowed / Active, Returned, Late
+    // Statuses: Active, Returned, Late
 }
-
+*/

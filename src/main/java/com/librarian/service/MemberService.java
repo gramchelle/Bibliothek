@@ -1,13 +1,8 @@
 package com.librarian.service;
 
-import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
-import com.librarian.dto.requestDto.save.MemberSaveRequestDto;
-import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
+import com.librarian.dto.requestDto.save.*;
 import com.librarian.dto.requestDto.update.MemberUpdateRequestDto;
-import com.librarian.dto.responseDto.AddressGetResponseDto;
-import com.librarian.dto.responseDto.LoanGetResponseDto;
-import com.librarian.dto.responseDto.MemberGetResponseDto;
-import com.librarian.dto.responseDto.ReservationGetResponseDto;
+import com.librarian.dto.responseDto.*;
 import com.librarian.exception.ResourceNotFoundException;
 import com.librarian.model.*;
 import com.librarian.repository.*;
@@ -27,7 +22,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
-    private final LoanRepository loanRepository;
+//    private final LoanRepository loanRepository;
     private final BookRepository bookRepository;
 
     @Qualifier("modelMapper")
@@ -45,9 +40,9 @@ public class MemberService {
         return true;
     }
 
-    private boolean isEmailExists(String email) {
-        return memberRepository.findByEmail(email).isPresent();
-    }
+//    private boolean isEmailExists(String email) {
+//        return memberRepository.findByEmail(email).isPresent();
+//    }
 
     public List<MemberGetResponseDto> getAllMembers() {
         List<Member> members = memberRepository.findAll();
@@ -78,6 +73,8 @@ public class MemberService {
         member.setName(dto.getName());
         member.setSurname(dto.getSurname());
         member.setEmail(dto.getEmail());
+        member.setPhone_number(dto.getPhone_number());
+        member.setBirth_year(dto.getBirth_year());
 
         return memberRepository.save(member);
     }
@@ -114,20 +111,20 @@ public class MemberService {
     }
 
 
-    @Transactional
-    public void addLoan(Long memberId, LoanSaveRequestDto loanSaveRequestDto) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("Member not found"));
-
-        Book book = bookRepository.findById(loanSaveRequestDto.getBookId())
-                .orElseThrow(() -> new RuntimeException("Book not found"));
-
-        Loan loan = modelMapper.map(loanSaveRequestDto, Loan.class);
-        loan.setMember(member);
-        loan.setBook(book);
-
-        loanRepository.save(loan);
-    }
+//    @Transactional
+//    public void addLoan(Long memberId, LoanSaveRequestDto loanSaveRequestDto) {
+//        Member member = memberRepository.findById(memberId)
+//                .orElseThrow(() -> new RuntimeException("Member not found"));
+//
+//        Book book = bookRepository.findById(loanSaveRequestDto.getBookId())
+//                .orElseThrow(() -> new RuntimeException("Book not found"));
+//
+//        Loan loan = modelMapper.map(loanSaveRequestDto, Loan.class);
+//        loan.setMember(member);
+//        loan.setBook(book);
+//
+//        loanRepository.save(loan);
+//    }
 
     public List<AddressGetResponseDto> getAddressesByMember(Long memberId) {
         Member member = memberRepository.findById(memberId)
@@ -154,14 +151,14 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
-    public List<LoanGetResponseDto> getLoansByMember(Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + memberId));
-
-        return member.getLoans().stream()
-                .map(loan -> modelMapper.map(loan, LoanGetResponseDto.class))
-                .collect(Collectors.toList());
-    }
+//    public List<LoanGetResponseDto> getLoansByMember(Long memberId) {
+//        Member member = memberRepository.findById(memberId)
+//                .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + memberId));
+//
+//        return member.getLoans().stream()
+//                .map(loan -> modelMapper.map(loan, LoanGetResponseDto.class))
+//                .collect(Collectors.toList());
+//    }
 
 
 }

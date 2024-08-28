@@ -1,5 +1,5 @@
 package com.librarian.controller;
-
+/*
 import com.librarian.dto.requestDto.save.LoanSaveRequestDto;
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
 import com.librarian.dto.requestDto.update.LoanUpdateRequestDto;
@@ -7,8 +7,6 @@ import com.librarian.dto.requestDto.update.ReservationUpdateRequestDto;
 import com.librarian.dto.responseDto.LoanGetResponseDto;
 import com.librarian.dto.responseDto.ReservationGetResponseDto;
 import com.librarian.model.Loan;
-import com.librarian.model.Reservation;
-import com.librarian.service.LoanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,19 +22,31 @@ public class LoanController {
     private final LoanService loanService;
 
     @PostMapping("/save")
-    public ResponseEntity<Boolean> saveLoan(@RequestBody LoanSaveRequestDto loanSaveRequestDto) {
-        Boolean isLoanSaved = loanService.saveLoan(loanSaveRequestDto);
-        return new ResponseEntity<>(isLoanSaved, HttpStatus.CREATED);
+    public ResponseEntity<LoanGetResponseDto> saveLoan(@RequestBody LoanSaveRequestDto loanSaveRequestDto) {
+        LoanGetResponseDto savedLoan = loanService.saveLoan(loanSaveRequestDto);
+        return new ResponseEntity<>(savedLoan, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Boolean> updateLoan(@RequestBody LoanUpdateRequestDto loanUpdateRequestDto) {
-        Boolean updateResult = loanService.updateLoan(loanUpdateRequestDto);
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<LoanGetResponseDto> getLoanById(@PathVariable Long id) {
+        LoanGetResponseDto loan = loanService.getLoanById(id);
+        return new ResponseEntity<>(loan, HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Boolean> updateLoan(@PathVariable Long id, @RequestBody LoanUpdateRequestDto loanUpdateRequestDto) {
+        Boolean updateResult = loanService.updateLoan(id, loanUpdateRequestDto);
         return new ResponseEntity<>(updateResult, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteLoan(@PathVariable Long id) {
+        loanService.deleteLoan(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping("/getAll")
-    public ResponseEntity<List<LoanGetResponseDto>> getAllReservations() {
+    public ResponseEntity<List<LoanGetResponseDto>> getAllLoans() {
         List<LoanGetResponseDto> loanGetResponseDtos = loanService.getAllLoans();
         return new ResponseEntity<>(loanGetResponseDtos, HttpStatus.OK);
     }
@@ -48,3 +58,4 @@ public class LoanController {
     }
 
 }
+*/

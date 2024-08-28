@@ -11,5 +11,6 @@ public class ReservationUpdateRequestDto {
 
     private Long id;
     private LocalDate reservationDate;
+    private LocalDate returnDate;
     private String status;
 }

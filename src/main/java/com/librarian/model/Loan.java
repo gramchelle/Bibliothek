@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
+/*
 @Entity
 @Data
 @Table(name = "loan")
@@ -25,7 +24,7 @@ public class Loan {
     private Member member;
 
     @Column(name = "loan_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDate loanDate;
 
     @Column(name = "due_date")
@@ -37,8 +36,9 @@ public class Loan {
     private LocalDate returnDate;
 
     @Column(nullable = false)
-    private String status;
-
-    @Column(nullable = false)
     private boolean isReturned;
+
+    @Column(name = "status", nullable = false)
+    private String status;
 }
+*/

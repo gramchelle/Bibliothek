@@ -1,9 +1,12 @@
 package com.librarian.service;
 
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
+import com.librarian.dto.requestDto.update.MemberUpdateRequestDto;
 import com.librarian.dto.requestDto.update.ReservationUpdateRequestDto;
+import com.librarian.dto.responseDto.MemberGetResponseDto;
 import com.librarian.dto.responseDto.ReservationGetResponseDto;
 import com.librarian.exception.ResourceNotFoundException;
+import com.librarian.model.Member;
 import com.librarian.model.Reservation;
 import com.librarian.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,27 +32,27 @@ public class ReservationService {
         return true;
     }
 
-    public Reservation updateReservation(Long id, ReservationUpdateRequestDto reservationUpdateRequestDto) {
+    public Reservation updateReservation(Long id, ReservationUpdateRequestDto dto) {
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
 
-        reservation.setReservationDate(reservationUpdateRequestDto.getReservationDate());
-        reservation.setStatus(reservationUpdateRequestDto.getStatus());
+        reservation.setReservationDate(dto.getReservationDate());
+        reservation.setReturnDate(dto.getReturnDate());
+        reservation.setStatus(dto.getStatus());
 
         return reservationRepository.save(reservation);
     }
 
-//    public ReservationGetResponseDto getReservationById(Long reservationId) {
-//        Reservation reservation = reservationRepository.findById(reservationId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
-//
-//        return new ReservationGetResponseDto(
-//                reservation.getId(),
-//                reservation.getReservationDate(),
-//                reservation.getStatus()
-//        );
-//    }
+    public ReservationGetResponseDto getReservationById(Long id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found with ID: " + id));
 
+        // Debug or log to ensure title is being set
+        System.out.println("Reservation title: " + reservation.getBook().getTitle());
+
+        ReservationGetResponseDto responseDto = modelMapper.map(reservation, ReservationGetResponseDto.class);
+        return responseDto;
+    }
 
     public List<ReservationGetResponseDto> getAllReservations() {
         List<Reservation> reservations = reservationRepository.findAll();

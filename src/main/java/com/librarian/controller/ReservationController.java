@@ -1,5 +1,6 @@
 package com.librarian.controller;
 
+import com.librarian.dto.requestDto.save.MemberSaveRequestDto;
 import com.librarian.dto.requestDto.save.ReservationSaveRequestDto;
 import com.librarian.dto.requestDto.update.MemberUpdateRequestDto;
 import com.librarian.dto.requestDto.update.ReservationUpdateRequestDto;
@@ -30,8 +31,8 @@ public class ReservationController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Reservation> updateReservation(@PathVariable Long id, @RequestBody ReservationUpdateRequestDto dto) {
-        Reservation updatedReservation = reservationService.updateReservation(id, dto);
-        return ResponseEntity.ok(updatedReservation);
+        Reservation isReservationSaved = reservationService.updateReservation(id, dto);
+        return ResponseEntity.ok(isReservationSaved);
     }
 
     @GetMapping("/getAll")
@@ -52,12 +53,9 @@ public class ReservationController {
         return ResponseEntity.noContent().build(); // 204 No Content
     }
 
-//    @GetMapping("/getById/{reservationId}")
-//    public ResponseEntity<ReservationGetResponseDto> getReservationById(@PathVariable Long reservationId) {
-//        ReservationGetResponseDto responseDto = reservationService.getReservationById(reservationId);
-//        return new ResponseEntity<>(responseDto, HttpStatus.OK);
-//    }
-
-
-
+    @GetMapping("/getById/{reservationId}")
+    public ResponseEntity<ReservationGetResponseDto> getReservationById(@PathVariable Long reservationId) {
+        ReservationGetResponseDto responseDto = reservationService.getReservationById(reservationId);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }
