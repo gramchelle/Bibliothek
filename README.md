@@ -52,7 +52,8 @@ Are provided in this document: [Postman - Bibliothek](https://documenter.getpost
 - 
 ### ER Diagram
   
-![ER Diagram](https://github.com/user-attachments/assets/511fa7ae-5623-4cb9-99a4-f0a2db249d75)
+![ER Diagram](https://github.com/user-attachments/assets/a0c30d05-b31a-4d69-98f0-55ca7d41b8ed)
+
   
 ## Contributing
 
