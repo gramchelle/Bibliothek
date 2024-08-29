@@ -26,7 +26,7 @@ Bibliothek offers a comprehensive set of features designed to streamline the man
 - JDK 21 or Higher
 - Maven 3.6.0 or higher
 - A database either built-in (H2, SQLite), or explicit (MySQL, PostgreSQL, etc.)
-- 
+  
 ### Steps
 ``` git clone https://github.com/gramchelle/Bibliothek.git ```
   
@@ -52,7 +52,8 @@ Are provided in this document: [Postman - Bibliothek](https://documenter.getpost
 - 
 ### ER Diagram
   
-![ER Diagram](https://github.com/user-attachments/assets/511fa7ae-5623-4cb9-99a4-f0a2db249d75)
+![ER Diagram](https://github.com/user-attachments/assets/a0c30d05-b31a-4d69-98f0-55ca7d41b8ed)
+
   
 ## Contributing
 
